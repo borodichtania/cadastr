@@ -1,43 +1,22 @@
 const request = require('request');
 const iconv  = require('iconv-lite');
-const htmlparser = require("htmlparser");
-var cheerio = require('cheerio');
+const cheerio = require('cheerio');
 
 const opt = {
-    url: 'https://qpublic.schneidercorp.com/Application.aspx?AppID=1051&LayerID=23951&PageTypeID=3&PageID=9968&Q=650607816',
+    url: 'https://iaspublicaccess.fultoncountyga.gov/search/advancedsearch.aspx?mode=advanced',
     encoding: null
 };
 
 request(opt, function (err, res, body) {
     if (err) throw err;
 
-    var $ = cheerio.load(iconv.decode(body, 'win1251'), {
-        xml: {
-            normalizeWhitespace: true,
-        }
-    });
-   console.log($('a').toString());
+    let $ = cheerio.load(iconv.decode(body, 'win1251'));
+   console.log($('a').text());
 
+   let resultData = [{'key':'value1'},{'key':'value2'}];
+    const hasValue = Object.values(resultData);
 
-    /*$('table').find('tbody tr:nth-child(1)').each(()=> {
-       // $('td').find('a').each(() => {
-            console.log($(this).text())
-        //})
-    })*/
-
-    $('table:nth-child(1) tr').each(function(i, tr){
-
-        console.log($(this));
-        /*$('td').each(() =>{
-            console.log('td: '+ $(this).text());
-        })*/
-
-        //var href = $(this).attr('href');
-        //var itemNum = children.eq(i);
-
-
-       // console.log(i + '  '+href);
-       // console.log(a);
-    });
+    console.log(resultData.some(data => data.key === "value2"));
+    //console.log($('#ctlBodyPane_ctl00_lblName').text());
 
 });

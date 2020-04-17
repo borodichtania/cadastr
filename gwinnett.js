@@ -18,6 +18,8 @@ function getPages(callback) {
         let $ = cheerio.load(iconv.decode(body, 'win1251'));
         let hrefs = [];
         hrefs.push('?page1397=1');
+
+
         $('#QuickSearch > div.search-banner.ui-widget > div.search-results-bar > div').find('a')
             .filter(function() {
                     if ($(this).attr('href') != '#' && !hrefs.includes($(this).attr('href')))
